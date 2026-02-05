@@ -1,0 +1,9 @@
+Install and configure the Docker Datadog Agent on a standalone Linux VM (non-Kubernetes) and verify:
+
+Check docker service status
+
+Infrastructure metrics
+
+System metrics
+
+Agent connectivity to Datadog UI
