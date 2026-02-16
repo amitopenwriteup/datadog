@@ -1,133 +1,62 @@
 apiVersion: datadoghq.com/v2alpha1
-
 kind: DatadogAgent
-
 metadata:
-
   name: datadog
-
 spec:
-
   global:
-
     clusterName: "k8s-cluster"
-
     site: "us5.datadoghq.com"
-
-
-
     credentials:
-
       apiSecret:
-
         secretName: datadog-secret
-
         keyName: api-key
-
-
-
     registry: gcr.io/datadoghq
-
-
-
     tags:
-
       - env:prod
-
       - cluster:k8s-lab
-
-
-
     kubelet:
-
       tlsVerify: false
-
-
-
   features:
-
     clusterChecks:
-
       enabled: true
-
-
-
     orchestratorExplorer:
-
       enabled: true
-
-
-
     apm:
-
-      enabled: true   # ✅ basic APM only (no hostPort / auto-instrumentation)
-
-
-
+      enabled: true
+      instrumentation:
+        enabled: true
+        targets:
+          - name: "default-target"
+            ddTraceVersions:
+              java: "1"
+              python: "4"
+              js: "5"
+              php: "1"
+              dotnet: "3"
+              ruby: "2"
     logCollection:
-
       enabled: true
-
       containerCollectAll: true
-
-
-
     liveProcessCollection:
-
       enabled: true
-
-
-
     liveContainerCollection:
-
       enabled: true
-
-
-
     kubeStateMetricsCore:
-
       enabled: true
-
-
-
   override:
-
     nodeAgent:
-
       hostNetwork: true
-
-
-
       env:
-
         - name: DD_LOG_LEVEL
-
           value: info
-
         - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
-
           value: "true"
-
-
-
       tolerations:
-
         - key: node-role.kubernetes.io/master
-
           operator: Exists
-
           effect: NoSchedule
-
         - key: node-role.kubernetes.io/control-plane
-
           operator: Exists
-
           effect: NoSchedule
-
-
-
     clusterAgent:
-
       replicas: 1
-
-
