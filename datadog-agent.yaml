@@ -23,6 +23,9 @@ spec:
       enabled: true
     apm:
       enabled: true
+      hostPortConfig:
+        enabled: true
+        hostPort: 8126
       instrumentation:
         enabled: true
         targets:
