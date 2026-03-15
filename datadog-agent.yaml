@@ -12,7 +12,7 @@ spec:
         keyName: api-key
     registry: gcr.io/datadoghq
     tags:
-      - env:prod
+      - env:dev
       - cluster:k8s-lab
     kubelet:
       tlsVerify: false
